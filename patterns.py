@@ -1,4 +1,5 @@
 from default_dict import get_default_dict
+from match import Matches
 """
 Returns dictionary of letter occurrences within a given word.
 """
@@ -16,12 +17,12 @@ def get_pattern(guess, word):
     chars = letter_counts(word)
 
     for i in range(5):
-        match = 0
+        match = Matches.NONE
         if guess[i] == word[i]:
-            match = 2
+            match = Matches.MATCH
             chars[guess[i]] -= 1
         elif chars[guess[i]] > 0:
-            match = 1
+            match = Matches.PRESENT
             chars[guess[i]] -= 1
         pattern += (match * (3 ** (4 - i)))
 
@@ -35,7 +36,3 @@ def pattern_string_to_number(pattern):
         cur_exp += 1
     
     return total
-
-print(pattern_string_to_number("02010"))
-# Test word -- 12000, 135
-# print(get_pattern("heney", "teach"))
